@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class UsuarioDto {
 	@NotBlank
 	private String email;
 
-	private List<DigitoUnico> digitoUnicoDtoList;
+	private List<DigitoUnicoDto> digitoUnicoDtoList;
 
 	public Usuario toEntity() {
 		Usuario usuario = new Usuario();

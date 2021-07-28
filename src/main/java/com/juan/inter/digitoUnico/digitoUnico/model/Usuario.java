@@ -1,7 +1,9 @@
 package com.juan.inter.digitoUnico.digitoUnico.model;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.juan.inter.digitoUnico.digitoUnico.dto.UsuarioDto;
+import com.juan.inter.digitoUnico.digitoUnico.util.DigitoUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +36,7 @@ public class Usuario implements Serializable {
     private String email;
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<DigitoUnico> digitoUnicoList;
+    private List<DigitoUnico> digitoUnicoList = new ArrayList<>();;
 
 	public Usuario(Long id, String nome, String email) {
 		super();
@@ -51,6 +54,7 @@ public class Usuario implements Serializable {
 		usuarioDto.setId(this.id);
         usuarioDto.setNome(this.nome);
         usuarioDto.setEmail(this.email);
+        usuarioDto.setDigitoUnicoDtoList(DigitoUtils.toListDto(this.digitoUnicoList));
 		return usuarioDto;
 	}
 }

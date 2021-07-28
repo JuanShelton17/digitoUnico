@@ -42,6 +42,10 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 	
+	public Usuario(Long id) {
+        this.id = id;
+    }
+	
 	public UsuarioDto toDto() {
 		UsuarioDto usuarioDto =  new UsuarioDto();
 		usuarioDto.setId(this.id);

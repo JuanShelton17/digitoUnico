@@ -47,4 +47,14 @@ public class UsuarioController {
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestBody @Valid UsuarioDto usuarioDto) {
+		try {
+			Optional<Usuario> usuario = usuarioService.deletar(usuarioDto.getId());
+			return ResponseEntity.ok(usuario.get().toDto());
+		} catch (Exception ex) {
+			return ResponseEntity.status(400).body(ex.getMessage());
+		}
+	}
 }

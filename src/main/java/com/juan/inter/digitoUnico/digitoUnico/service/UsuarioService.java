@@ -11,5 +11,5 @@ public interface UsuarioService {
 
 	Usuario insertUsuario(UsuarioDto usuarioDto);
 
-	Usuario deletar(Long id);
+	Optional<Usuario> deletar(Long id);
 }

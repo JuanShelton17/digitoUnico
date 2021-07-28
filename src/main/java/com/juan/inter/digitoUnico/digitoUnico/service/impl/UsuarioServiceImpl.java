@@ -35,8 +35,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario deletar(Long id) {
+	public Optional<Usuario> deletar(Long id) {
 		usuarioRepository.deleteById(id);
-		return null;
+		return Optional.ofNullable(new Usuario(id));
 	}
 }

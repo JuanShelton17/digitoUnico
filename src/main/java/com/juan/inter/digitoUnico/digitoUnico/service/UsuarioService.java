@@ -9,7 +9,7 @@ public interface UsuarioService {
 
 	Optional<Usuario> buscarPorId(Long id);
 
-	Usuario insertUsuario(UsuarioDto usuarioDto);
+	Usuario inserir(UsuarioDto usuarioDto);
 
 	Optional<Usuario> deletar(Long id);
 }

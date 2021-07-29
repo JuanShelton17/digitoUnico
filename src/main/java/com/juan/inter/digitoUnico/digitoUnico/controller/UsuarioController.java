@@ -21,8 +21,9 @@ import com.juan.inter.digitoUnico.digitoUnico.service.impl.CriptografiaService;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
+	
 	private final UsuarioService usuarioService;
+	
 	private final CriptografiaService criptografiaService;
 
 	public UsuarioController(UsuarioService usuarioService, CriptografiaService criptografiaService) {
@@ -43,9 +44,19 @@ public class UsuarioController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody @Valid UsuarioDto usuarioDto) {
 		try {
-			Usuario usuario = usuarioService.insertUsuario(usuarioDto);
+			Usuario usuario = usuarioService.inserir(usuarioDto);
 			return ResponseEntity.created(URI.create(String.format("/usuarios/%s", usuario.getId())))
 					.body(usuario.toDto());
+		} catch (Exception ex) {
+			return ResponseEntity.status(400).body(ex.getMessage());
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestBody @Valid UsuarioDto usuarioDto) {
+		try {
+			Optional<Usuario> usuario = usuarioService.deletar(usuarioDto.getId());
+			return ResponseEntity.ok(usuario.get().toDto());
 		} catch (Exception ex) {
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
@@ -70,14 +81,4 @@ public class UsuarioController {
 //			return ResponseEntity.status(400).body(ex.getMessage());
 //		}
 //	}
-	
-	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestBody @Valid UsuarioDto usuarioDto) {
-		try {
-			Optional<Usuario> usuario = usuarioService.deletar(usuarioDto.getId());
-			return ResponseEntity.ok(usuario.get().toDto());
-		} catch (Exception ex) {
-			return ResponseEntity.status(400).body(ex.getMessage());
-		}
-	}
 }

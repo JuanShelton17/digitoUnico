@@ -27,7 +27,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport{
 	private ApiInfo apiInfo()
 	{
 
-		return new ApiInfoBuilder().title("SPRING REST API").description("Documentação das APIs REST").build();
+		return new ApiInfoBuilder().title("Desafio Dígito Único").description("Documentação da API de calculo de dígito único.").build();
 	}
 
 	@Override

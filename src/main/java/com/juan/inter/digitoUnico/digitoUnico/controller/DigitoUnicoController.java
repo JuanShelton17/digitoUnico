@@ -1,12 +1,10 @@
 package com.juan.inter.digitoUnico.digitoUnico.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +22,8 @@ import com.juan.inter.digitoUnico.digitoUnico.util.DigitoUtils;
 @RequestMapping("/digito-unico")
 public class DigitoUnicoController {
 
+	public static final String ERRO_AO_VERIFICAR_USUARIO_VALIDO = "Não foi encontrado nenhum usuário para o id ";
+	
 	private DigitoUnicoService digitoUnicoService;
 
 	private UsuarioService usuarioService;
@@ -36,24 +36,21 @@ public class DigitoUnicoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> calcular(@RequestBody @Valid DigitoUnicoDto digitoUnicoDto) {
 
-		DigitoUnico digitoUnico = digitoUnicoService.calcularDigito(digitoUnicoDto.getNumero(),digitoUnicoDto.getMultiplicador());
-		
+		DigitoUnico digitoUnico = digitoUnicoService.calcularDigito(digitoUnicoDto.getNumero(),
+				digitoUnicoDto.getMultiplicador());
+
 		try {
 			digitoUnico.setUsuario(new Usuario(digitoUnicoDto.getIdUsuario()));
-			 gravarDigitoUnicoCasoVinculadoAoUsuario(digitoUnico);
-			
+			gravarDigitoUnicoCasoVinculadoAoUsuario(digitoUnico);
+
 		} catch (UsuarioNaoEncontradoExeption ex) {
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
 		return ResponseEntity.ok(DigitoUtils.toDto(digitoUnico));
 	}
-	
-	@RequestMapping(value = "/{qtdeResultados}", method = RequestMethod.GET)
-	public ResponseEntity<List<DigitoUnico>> getDigitos(@PathVariable int qtdeResultados) {
-		return ResponseEntity.ok(this.digitoUnicoService.ultimosResultados(qtdeResultados));
-	}
 
 	private void gravarDigitoUnicoCasoVinculadoAoUsuario(DigitoUnico digitoUnico) throws UsuarioNaoEncontradoExeption {
+
 		verificaUsuarioValido(digitoUnico.getUsuario().getId());
 
 		if (digitoUnico.getUsuario().getId() != null) {
@@ -64,7 +61,7 @@ public class DigitoUnicoController {
 	private void verificaUsuarioValido(Long idUsuario) throws UsuarioNaoEncontradoExeption {
 		Optional<Usuario> usuario = usuarioService.buscarPorId(idUsuario);
 		if (!usuario.isPresent()) {
-			throw new UsuarioNaoEncontradoExeption("Não foi encontrado nenhum usuário para o id " + idUsuario);
+			throw new UsuarioNaoEncontradoExeption(ERRO_AO_VERIFICAR_USUARIO_VALIDO + idUsuario);
 		}
 	}
 }

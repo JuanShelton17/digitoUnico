@@ -20,31 +20,33 @@ public class CriptografiaService {
 	}
 
 	public Usuario criptografar(UsuarioDto usuario) throws CriptografiaException {
-		
+
 		KeyPair keyPair = CriptografiaUtil.geraChave();
-		
-		if(usuario.getId() != null)
-		{
-			String nome = usuario.getNome();
-			String email = usuario.getEmail();
 
-			byte[] nomeEncript = nome.getBytes();
-			byte[] emailEncript = email.getBytes();
-			
-			usuario.setNome(CriptografiaUtil.decriptografa(nomeEncript, keyPair.getPrivate()));
-			usuario.setEmail(CriptografiaUtil.decriptografa(emailEncript, keyPair.getPrivate()));
-
-			return usuarioService.insertUsuario(usuario);
-		}
-		
 		String nome = usuario.getNome();
 		String email = usuario.getEmail();
 
 		usuario.setNome(CriptografiaUtil.criptografa(nome, keyPair.getPublic()).toString());
 		usuario.setEmail(CriptografiaUtil.criptografa(email, keyPair.getPublic()).toString());
 
-		return usuarioService.insertUsuario(usuario);
+		return usuarioService.inserir(usuario);
 	}
+
+//	}
+//	
+//	if(usuario.getId() != null)
+//	{
+//		String nome = usuario.getNome();
+//		String email = usuario.getEmail();
+//
+//		byte[] nomeEncript = nome.getBytes();
+//		byte[] emailEncript = email.getBytes();
+//		
+//		usuario.setNome(CriptografiaUtil.decriptografa(nomeEncript, keyPair.getPrivate()));
+//		usuario.setEmail(CriptografiaUtil.decriptografa(emailEncript, keyPair.getPrivate()));
+//
+//		return usuarioService.inserir(usuario);
+//	}
 
 //	public Usuario descriptografar(UsuarioDto usuario) throws CriptografiaException {
 //		KeyPair keyPair = CriptografiaUtil.geraChave();

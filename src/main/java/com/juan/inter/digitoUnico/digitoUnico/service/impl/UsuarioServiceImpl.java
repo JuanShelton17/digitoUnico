@@ -13,6 +13,8 @@ import com.juan.inter.digitoUnico.digitoUnico.service.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
+	private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado!";
+	
 	private final UsuarioRepository usuarioRepository;
 
 	public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
@@ -23,13 +25,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Optional<Usuario> buscarPorId(Long id) throws UsuarioNaoEncontradoExeption {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		if (!usuario.isPresent()) {
-			throw new UsuarioNaoEncontradoExeption("Usuário não encontrado");
+			throw new UsuarioNaoEncontradoExeption(USUARIO_NAO_ENCONTRADO);
 		}
 		return usuario;
 	}
 
 	@Override
-	public Usuario insertUsuario(UsuarioDto usuarioDto) {
+	public Usuario inserir(UsuarioDto usuarioDto) {
 		Usuario usuario = usuarioRepository.save(usuarioDto.toEntity());
 		return usuario;
 	}

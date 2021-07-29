@@ -1,5 +1,7 @@
 package com.juan.inter.digitoUnico.digitoUnico.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
@@ -30,5 +32,11 @@ public class DigitoUnicoServiceImpl implements DigitoUnicoService {
 			valorACalcular = DigitoUtils.aplicarMultiplicador(valorACalcular, multiplo);
 		}
 		return new DigitoUnico(numero, multiplo, DigitoUtils.calcularDigitoUnico(valorACalcular));
+	}
+
+	@Override
+	public List<DigitoUnico> ultimosResultados(int q) {
+		// TODO Auto-generated method stub
+		return digitoUnicoRepository.ultimosResultados(q);
 	}
 }

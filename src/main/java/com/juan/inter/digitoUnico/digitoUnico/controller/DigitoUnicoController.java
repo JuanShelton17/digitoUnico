@@ -1,10 +1,12 @@
 package com.juan.inter.digitoUnico.digitoUnico.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +46,11 @@ public class DigitoUnicoController {
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
 		return ResponseEntity.ok(DigitoUtils.toDto(digitoUnico));
+	}
+	
+	@RequestMapping(value = "/{qtdeResultados}", method = RequestMethod.GET)
+	public ResponseEntity<List<DigitoUnico>> getDigitos(@PathVariable int qtdeResultados) {
+		return ResponseEntity.ok(this.digitoUnicoService.ultimosResultados(qtdeResultados));
 	}
 
 	private void gravarDigitoUnicoCasoVinculadoAoUsuario(DigitoUnico digitoUnico) throws UsuarioNaoEncontradoExeption {

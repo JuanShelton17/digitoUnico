@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
     @Column
     private String email;
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<DigitoUnico> digitoUnicoList = new ArrayList<>();;
 
 	public Usuario(Long id, String nome, String email) {

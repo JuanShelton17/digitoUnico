@@ -1,5 +1,6 @@
 package com.juan.inter.digitoUnico.digitoUnico.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ import com.juan.inter.digitoUnico.digitoUnico.service.UsuarioService;
 public class UsuarioServiceImpl implements UsuarioService {
 
 	private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado!";
-	
+
+	private static final String USUARIOS_NAO_ENCONTRADOS = "O banco de dados não possui usuários ";
+
 	private final UsuarioRepository usuarioRepository;
 
 	public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
@@ -26,6 +29,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		if (!usuario.isPresent()) {
 			throw new UsuarioNaoEncontradoExeption(USUARIO_NAO_ENCONTRADO);
+		}
+		return usuario;
+	}
+
+	@Override
+	public List<Usuario> buscarTodos() {
+		List<Usuario> usuario = usuarioRepository.findAll();
+		if (usuario.isEmpty()) {
+			throw new UsuarioNaoEncontradoExeption(USUARIOS_NAO_ENCONTRADOS);
 		}
 		return usuario;
 	}

@@ -1,7 +1,9 @@
 package com.juan.inter.digitoUnico.digitoUnico.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -40,6 +42,13 @@ public class UsuarioController {
 			return ResponseEntity.status(404).body(ex.getMessage());
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<UsuarioDto>> getAll() {
+        List<Usuario> allUsuarios = usuarioService.buscarTodos();
+        return ResponseEntity.ok(allUsuarios.stream().map(Usuario::toDto).collect(Collectors.toList()));
+    }
+
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody @Valid UsuarioDto usuarioDto) {

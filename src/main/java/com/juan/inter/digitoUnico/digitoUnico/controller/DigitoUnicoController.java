@@ -1,5 +1,6 @@
 package com.juan.inter.digitoUnico.digitoUnico.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -32,6 +33,12 @@ public class DigitoUnicoController {
 		this.digitoUnicoService = digitoUnicoService;
 		this.usuarioService = usuarioService;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<DigitoUnicoDto>> getAll() {
+        List<DigitoUnico> allDigitos = digitoUnicoService.buscarTodos();
+        return ResponseEntity.ok(DigitoUtils.toListDto(allDigitos));
+    }
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> calcular(@RequestBody @Valid DigitoUnicoDto digitoUnicoDto) {

@@ -16,15 +16,18 @@ import com.juan.inter.digitoUnico.digitoUnico.dto.UsuarioDto;
 import com.juan.inter.digitoUnico.digitoUnico.exception.UsuarioNaoEncontradoExeption;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.service.UsuarioService;
+import com.juan.inter.digitoUnico.digitoUnico.service.impl.CriptografiaService;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
 	private final UsuarioService usuarioService;
+	private final CriptografiaService criptografiaService;
 
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, CriptografiaService criptografiaService) {
 		this.usuarioService = usuarioService;
+		this.criptografiaService = criptografiaService;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -47,6 +50,26 @@ public class UsuarioController {
 			return ResponseEntity.status(400).body(ex.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/criptografar", method = RequestMethod.POST)
+	public ResponseEntity<?> criptografar(@RequestBody @Valid UsuarioDto usuarioDto) {
+		try {
+			Usuario usuario = criptografiaService.criptografar(usuarioDto);
+			return ResponseEntity.ok(usuario);
+		} catch (Exception ex) {
+			return ResponseEntity.status(400).body(ex.getMessage());
+		}
+	}
+	
+//	@RequestMapping(value = "/descriptografar", method = RequestMethod.POST)
+//	public ResponseEntity<?> descriptografar(@RequestBody @Valid UsuarioDto usuarioDto) {
+//		try {
+//			Usuario usuario = criptografiaService.descriptografar(usuarioDto);
+//			return ResponseEntity.ok(usuario);
+//		} catch (Exception ex) {
+//			return ResponseEntity.status(400).body(ex.getMessage());
+//		}
+//	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@RequestBody @Valid UsuarioDto usuarioDto) {

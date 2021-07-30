@@ -20,7 +20,6 @@ import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.repository.DigitoUnicoRepository;
 import com.juan.inter.digitoUnico.digitoUnico.service.impl.DigitoUnicoServiceImpl;
-import com.juan.inter.digitoUnico.digitoUnico.util.DigitoUtils;
 
 @ExtendWith(SpringExtension.class)
 @TestInstance(Lifecycle.PER_CLASS)

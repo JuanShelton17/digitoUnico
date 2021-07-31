@@ -75,6 +75,7 @@ public class DigitoUnicoServiceTest {
 		usuario.setId(1L);
 		usuario.setNome("teste");
 		usuario.setEmail("teste@inter.com");
+		usuario.setDigitoUnicoList(null);
 		
 		digito1.setId(1L);
 		digito1.setNumero(123);

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.repository.DigitoUnicoRepository;
@@ -34,7 +35,7 @@ public class DigitoUnicoControllerTest {
 
 	@MockBean
 	private DigitoUnicoServiceImpl digitoUnicoServiceImpl;
-	
+
 	@MockBean
 	private UsuarioService usuarioService;
 
@@ -42,7 +43,7 @@ public class DigitoUnicoControllerTest {
 	private DigitoUnicoRepository digitoUnicoRepository;
 
 	private final String BASE_URL = "/digito-unico";
-	
+
 	@Test
 	void buscarTodosDigitos() throws Exception {
 		List<DigitoUnico> digitos = new ArrayList();
@@ -76,9 +77,32 @@ public class DigitoUnicoControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk());
 		assertNotNull(digitoUnicoServiceImpl.buscarTodos());
 	}
-	
-	@Test
-	void calcularDigito() throws Exception {
-		
-	}
+
+//	@Test
+//	void calcularDigito() throws Exception {
+//
+//		List<DigitoUnico> digitos = new ArrayList();
+//
+//		DigitoUnico digito1 = new DigitoUnico();
+//
+//
+//		Usuario usuario = new Usuario();
+//		usuario.setId(1L);
+//		usuario.setNome("teste");
+//		usuario.setEmail("teste@inter.com");
+//		usuario.setDigitoUnicoList(digitos);
+//
+//		digito1.setId(1L);
+//		digito1.setNumero(123);
+//		digito1.setMultiplicador(3);
+//		digito1.setResultado(null);
+//		digito1.setUsuario(usuario);
+//
+//		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//
+//		Mockito.when(digitoUnicoServiceImpl.salvar(Mockito.any())).thenReturn(digito1);
+//		mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).content(objectMapper.writeValueAsString(digito1))
+//				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+//	}
 }

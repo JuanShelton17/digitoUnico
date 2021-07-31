@@ -34,13 +34,13 @@ public class DigitoUnicoController {
 		this.usuarioService = usuarioService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<DigitoUnicoDto>> getAll() {
         List<DigitoUnico> allDigitos = digitoUnicoService.buscarTodos();
         return ResponseEntity.ok(DigitoUtils.toListDto(allDigitos));
     }
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<?> calcular(@RequestBody @Valid DigitoUnicoDto digitoUnicoDto) {
 
 		DigitoUnico digitoUnico = digitoUnicoService.calcularDigito(digitoUnicoDto.getNumero(),

@@ -20,7 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.juan.inter.digitoUnico.digitoUnico.controller.UsuarioController;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.juan.inter.digitoUnico.digitoUnico.dto.UsuarioDto;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.repository.UsuarioRepository;
 import com.juan.inter.digitoUnico.digitoUnico.service.impl.CriptografiaService;
@@ -85,42 +86,25 @@ public class UsuarioControllerTest {
 		assertNotNull(usuarioServiceImpl.buscarTodos());
 	}
 
-//	@Test
-//	void inserirUsuario() throws Exception {
-//
-//		UsuarioDto usuarioDto = new UsuarioDto();
-//		usuarioDto.setId(1L);
-//		usuarioDto.setNome("teste");
-//		usuarioDto.setEmail("teste@inter.com");
-//		usuarioDto.setDigitoUnicoDtoList(null);
-//
-//		Usuario usuario = new Usuario();
-//		usuario.setId(1L);
-//		usuario.setNome("teste");
-//		usuario.setEmail("teste@inter.com");
-//
-//		ObjectMapper objectMapper = new ObjectMapper();
-//
-//		Mockito.when(usuarioServiceImpl.inserir(usuarioDto)).thenReturn(usuario);
-//		mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).content(objectMapper.writeValueAsString(usuario))
-//				.characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON))
-//				.andExpect(MockMvcResultMatchers.status().isCreated());
-//
-//	}
-	
-//	@Test
-//	void excluirUsuario() throws Exception {
-//		
-//		Usuario usuario = new Usuario();
-//		usuario.setId(1L);
-//		usuario.setNome("teste");
-//		usuario.setEmail("teste@inter.com");
-//		
-//		Optional<Usuario> usuarioOpt = Optional.of(usuario);
-//		Mockito.doNothing().when(usuarioRepository).deleteById(1L);
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		
-//		mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL).content(objectMapper.writeValueAsString(usuario)))
-//		.andExpect(MockMvcResultMatchers.status().isOk());
-//	}
+	@Test
+	void inserirUsuario() throws Exception {
+
+		UsuarioDto usuarioDto = new UsuarioDto();
+		usuarioDto.setId(1L);
+		usuarioDto.setNome("teste");
+		usuarioDto.setEmail("teste@inter.com");
+		usuarioDto.setDigitoUnicoDtoList(null);
+
+		Usuario usuario = new Usuario();
+		usuario.setId(1L);
+		usuario.setNome("teste");
+		usuario.setEmail("teste@inter.com");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		Mockito.when(usuarioServiceImpl.inserir(Mockito.any())).thenReturn(usuario);
+		mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).content(objectMapper.writeValueAsString(usuario))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated());
+
+	}
 }

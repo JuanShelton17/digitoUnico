@@ -33,7 +33,7 @@ public class UsuarioController {
 		this.criptografiaService = criptografiaService;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity getById(@PathVariable("id") Long id) {
 		try {
 			Optional<Usuario> usuario = usuarioService.buscarPorId(id);
@@ -43,14 +43,14 @@ public class UsuarioController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<UsuarioDto>> getAll() {
         List<Usuario> allUsuarios = usuarioService.buscarTodos();
         return ResponseEntity.ok(allUsuarios.stream().map(Usuario::toDto).collect(Collectors.toList()));
     }
 
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST,  produces = "application/json")
 	public ResponseEntity<?> insert(@RequestBody @Valid UsuarioDto usuarioDto) {
 		try {
 			Usuario usuario = usuarioService.inserir(usuarioDto);

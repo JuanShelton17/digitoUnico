@@ -24,7 +24,7 @@ P = 116 = 1 + 1 + 6 = 8
 ```
 
 
-###Tecnologias utilizadas
+### Tecnologias utilizadas
 
 Para criar o projeto foram utilizados as seguintes ferramentas/frameworks:
 

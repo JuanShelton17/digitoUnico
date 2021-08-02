@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +36,7 @@ public class UsuarioController {
 		this.criptografiaService = criptografiaService;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/{id}", produces = "application/json")
 	public ResponseEntity getById(@PathVariable("id") Long id) {
 		try {
 			Optional<Usuario> usuario = usuarioService.buscarPorId(id);
@@ -43,14 +46,14 @@ public class UsuarioController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(produces = "application/json")
     public ResponseEntity<List<UsuarioDto>> getAll() {
         List<Usuario> allUsuarios = usuarioService.buscarTodos();
         return ResponseEntity.ok(allUsuarios.stream().map(Usuario::toDto).collect(Collectors.toList()));
     }
 
 
-	@RequestMapping(method = RequestMethod.POST,  produces = "application/json")
+	@PostMapping(produces = "application/json")
 	public ResponseEntity<?> insert(@RequestBody @Valid UsuarioDto usuarioDto) {
 		try {
 			Usuario usuario = usuarioService.inserir(usuarioDto);
@@ -61,7 +64,7 @@ public class UsuarioController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE)
+	@DeleteMapping
 	public ResponseEntity<?> delete(@RequestBody @Valid UsuarioDto usuarioDto) {
 		try {
 			Optional<Usuario> usuario = usuarioService.deletar(usuarioDto.getId());
@@ -71,7 +74,7 @@ public class UsuarioController {
 		}
 	}
 	
-	@RequestMapping(value = "/criptografar", method = RequestMethod.POST)
+	@PostMapping(value = "/criptografar")
 	public ResponseEntity<?> criptografar(@RequestBody @Valid UsuarioDto usuarioDto) {
 		try {
 			Usuario usuario = criptografiaService.criptografar(usuarioDto);

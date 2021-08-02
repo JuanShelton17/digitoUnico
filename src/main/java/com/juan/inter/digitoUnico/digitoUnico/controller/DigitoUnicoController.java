@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,13 +36,13 @@ public class DigitoUnicoController {
 		this.usuarioService = usuarioService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(produces = "application/json")
     public ResponseEntity<List<DigitoUnicoDto>> getAll() {
         List<DigitoUnico> allDigitos = digitoUnicoService.buscarTodos();
         return ResponseEntity.ok(DigitoUtils.toListDto(allDigitos));
     }
 
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(produces = "application/json")
 	public ResponseEntity<?> calcular(@RequestBody @Valid DigitoUnicoDto digitoUnicoDto) {
 
 		DigitoUnico digitoUnico = digitoUnicoService.calcularDigito(digitoUnicoDto.getNumero(),

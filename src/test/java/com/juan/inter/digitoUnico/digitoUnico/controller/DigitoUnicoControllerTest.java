@@ -1,11 +1,11 @@
 package com.juan.inter.digitoUnico.digitoUnico.controller;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,11 +20,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.juan.inter.digitoUnico.digitoUnico.dto.UsuarioDto;
 import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.repository.DigitoUnicoRepository;
+import com.juan.inter.digitoUnico.digitoUnico.repository.UsuarioRepository;
 import com.juan.inter.digitoUnico.digitoUnico.service.UsuarioService;
 import com.juan.inter.digitoUnico.digitoUnico.service.impl.DigitoUnicoServiceImpl;
+import com.juan.inter.digitoUnico.digitoUnico.service.impl.UsuarioServiceImpl;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(DigitoUnicoController.class)
@@ -35,12 +38,15 @@ public class DigitoUnicoControllerTest {
 
 	@MockBean
 	private DigitoUnicoServiceImpl digitoUnicoServiceImpl;
-
+	
 	@MockBean
-	private UsuarioService usuarioService;
+	private UsuarioServiceImpl usuarioServiceImpl;
 
 	@Mock
 	private DigitoUnicoRepository digitoUnicoRepository;
+	
+	@Mock
+	private UsuarioRepository usuarioRepository;
 
 	private final String BASE_URL = "/digito-unico";
 
@@ -79,30 +85,44 @@ public class DigitoUnicoControllerTest {
 	}
 
 //	@Test
-//	void calcularDigito() throws Exception {
-//
+	void calcularDigito() throws Exception {
+
 //		List<DigitoUnico> digitos = new ArrayList();
 //
 //		DigitoUnico digito1 = new DigitoUnico();
 //
 //
+//		UsuarioDto usuarioDto = new UsuarioDto();
+//		usuarioDto.setId(1L);
+//		usuarioDto.setNome("teste");
+//		usuarioDto.setEmail("teste@inter.com");
+//		usuarioDto.setDigitoUnicoDtoList(null);
+//
 //		Usuario usuario = new Usuario();
 //		usuario.setId(1L);
 //		usuario.setNome("teste");
 //		usuario.setEmail("teste@inter.com");
-//		usuario.setDigitoUnicoList(digitos);
-//
+
+
 //		digito1.setId(1L);
 //		digito1.setNumero(123);
 //		digito1.setMultiplicador(3);
 //		digito1.setResultado(null);
 //		digito1.setUsuario(usuario);
-//
-//		
+		
+		JSONObject json = new JSONObject();
+		json.put("id", 1);
+        json.put("numero", 911);
+        json.put("multiplicador", 2);
+        json.put("idUsuario", 1);
+
+		
 //		ObjectMapper objectMapper = new ObjectMapper();
-//
-//		Mockito.when(digitoUnicoServiceImpl.salvar(Mockito.any())).thenReturn(digito1);
-//		mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).content(objectMapper.writeValueAsString(digito1))
-//				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
-//	}
+
+		Mockito.when(digitoUnicoServiceImpl.calcularDigito(Mockito.anyInt(),Mockito.anyInt())).thenReturn(new DigitoUnico());
+		Mockito.when(digitoUnicoRepository.save(Mockito.any())).thenReturn(new Usuario());
+		
+		mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).content(json.toString())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+	}
 }

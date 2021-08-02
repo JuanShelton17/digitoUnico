@@ -41,12 +41,17 @@ Para criar o projeto foram utilizados as seguintes ferramentas/frameworks:
 
 - O projeto possui com uma classe "DigitoUnicoApplication dentro do módulo de API para startar a aplicação através do SpringInitializer.
  
-    `digitoUnico > com.juan.inter.digitoUnico.digitoUnico; > DigitoUnicoApplication > Run as SpringBoot`
+    `digitoUnico > com.juan.inter.digitoUnico.digitoUnico > DigitoUnicoApplication > Run as SpringBoot`
     
 - Para build das dependências utilize o comando:
     `mvn install`
 
 - Para compilar a aplicação pelo maven utilize o comando:
     `mvn spring-boot:run`
+
+- Para executar os testes unitários utilize o comando:
+  - `./mvn test` 
+  - ou
+  - `src > test > java > com.juan.inter.digitoUnico.digitoUnico > Run as JUnitTests`
 
 

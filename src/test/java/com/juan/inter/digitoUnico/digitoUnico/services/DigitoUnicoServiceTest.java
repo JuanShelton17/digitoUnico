@@ -33,7 +33,7 @@ public class DigitoUnicoServiceTest {
 
 	@Test
 	void buscarTodos() {
-		List<DigitoUnico> digitos = new ArrayList();
+		List<DigitoUnico> digitos = new ArrayList<DigitoUnico>();
 
 		DigitoUnico digito1 = new DigitoUnico();
 

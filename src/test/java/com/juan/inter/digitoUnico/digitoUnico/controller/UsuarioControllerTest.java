@@ -64,7 +64,7 @@ public class UsuarioControllerTest {
 	@Test
 	void buscarTodosUsuarios() throws Exception {
 
-		List<Usuario> usuarios = new ArrayList();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
 
 		Usuario usuario = new Usuario();
 		usuario.setId(1L);

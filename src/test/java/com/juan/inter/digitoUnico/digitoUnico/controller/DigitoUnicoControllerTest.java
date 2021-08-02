@@ -19,13 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.juan.inter.digitoUnico.digitoUnico.dto.UsuarioDto;
 import com.juan.inter.digitoUnico.digitoUnico.model.DigitoUnico;
 import com.juan.inter.digitoUnico.digitoUnico.model.Usuario;
 import com.juan.inter.digitoUnico.digitoUnico.repository.DigitoUnicoRepository;
 import com.juan.inter.digitoUnico.digitoUnico.repository.UsuarioRepository;
-import com.juan.inter.digitoUnico.digitoUnico.service.UsuarioService;
 import com.juan.inter.digitoUnico.digitoUnico.service.impl.DigitoUnicoServiceImpl;
 import com.juan.inter.digitoUnico.digitoUnico.service.impl.UsuarioServiceImpl;
 
@@ -52,7 +49,7 @@ public class DigitoUnicoControllerTest {
 
 	@Test
 	void buscarTodosDigitos() throws Exception {
-		List<DigitoUnico> digitos = new ArrayList();
+		List<DigitoUnico> digitos = new ArrayList<DigitoUnico>();
 
 		DigitoUnico digito1 = new DigitoUnico();
 
